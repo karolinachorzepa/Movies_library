@@ -29,31 +29,47 @@ library=[
     Series(title="Friends",release=1995,genre="comedy",episode="E04",season="S01",watched=27569)
     ]
 
-def top_titles():
-    for a,b in enumerate(library):
-        if b.watched > 130:
-            print(f"{b} with {b.watched} views")
-top_titles()
-#def generate_views(times=10):
-    #generate_views()
+
 def search(library, title):
     for picture in library:
         if picture.title == title:
             return picture
+print(search(library,"Titanic"))
 
 def get_movies():
     for row in library:
-        if isinstance (row,Movies):
+        if type(row) == Movies:
             print(f"{row.title}")
 get_movies()
-
+#type to jest konkretna klasa 
 def get_series():
     for row in library:
-        if isinstance (row,Series):
+        if type(row) == Series:
             print(f"{row.title}")
 get_series()
 
 
+def top_titles():
+    for v in library:
+        if v.watched > 0:
+            print(f"{v} with {v.watched} views")
+            
+top=sorted(library, key = lambda x: x.watched)[::3]
 
+def generate_views(times = 10):
+    for i in range(times):
+        index = random_element()
+        add_views(index)
+        current_views = library[index].current_views
+        title = library[index].title
+        print(f"View generated for {title} ({current_views})")
 
-print(search(library,"Titanic"))
+def random_element():
+    elements =len(library) 
+    return randint(0, elements-1)
+
+def add_views(index):
+    views = randint(1,100)
+    return library[index].play(views)
+
+generate_views()
